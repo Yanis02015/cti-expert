@@ -51,24 +51,6 @@ export default new Vuex.Store({
           "Troisieme paragraphe",
         ]
       },
-      {
-        title: "Deuxième domaine d'activitè",
-        image: "",
-        content: [
-          "Premier paragraphe",
-          "Deuxième paragraphe",
-          "Troisième paragraphe",
-        ]
-      },
-      {
-        title: "Premier domaine d'activité",
-        image: "",
-        content: [
-          "Premier paragraphe",
-          "Deuxième paragraphe",
-          "Troisieme paragraphe",
-        ]
-      },
     ]
   },
   mutations: {
