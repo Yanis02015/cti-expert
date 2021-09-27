@@ -2,22 +2,25 @@
   <v-app>
     <v-app-bar absolute app color="white" height="90">
       <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="cti_logo.png"
-          transition="scale-transition"
-          width="70"
-        />
-
-        <div
-          class="text-h6 shrink mt-1 hidden-sm-and-down"
-          min-width="100"
-          width="100"
-        >
-          CTI EXPERT
-        </div>
+        <router-link to="/">
+          <v-img
+            alt="Vuetify Logo"
+            class="shrink mr-2"
+            contain
+            src="/cti_logo.png"
+            transition="scale-transition"
+            width="70"
+          />
+        </router-link>
+        <router-link to="/">
+          <div
+            class="text-h6 shrink mt-1 hidden-sm-and-down black--text"
+            min-width="100"
+            width="100"
+          >
+            CTI EXPERT
+          </div>
+        </router-link>
       </div>
 
       <v-spacer></v-spacer>
@@ -34,17 +37,42 @@
           <span>{{ item.title }}</span>
         </v-btn>
       </v-card>
+
+      <v-menu offset-x>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            v-bind="attrs"
+            v-on="on"
+            outlined
+            class="hidden-md-and-up green--text"
+          >
+            <v-icon>mdi-menu</v-icon>
+          </v-btn>
+        </template>
+        <v-card>
+          <v-list-item-group v-model="selectedMenuItem" color="green">
+            <v-list-item v-for="(item, i) in menuNavigation" :key="i">
+              <v-card-actions class="pr-8" @click="goToLink(item.link)">
+                {{ item.title }}
+              </v-card-actions>
+            </v-list-item>
+          </v-list-item-group>
+        </v-card>
+      </v-menu>
     </v-app-bar>
 
+    <!-- Main -->
     <v-main>
-      <router-view />
+      <transition name="slide-fade">
+        <router-view />
+      </transition>
     </v-main>
 
     <v-footer padless>
       <v-card flat tile width="100%">
         <v-row class="ma-0 text-center">
           <v-col cols="12" md="4">
-            <v-img class="ma-auto" src="cti_logo.png" width="150" />
+            <v-img class="ma-auto" src="/cti_logo.png" width="150" />
             <v-card-text>
               Entreprise de métrologie agréé.
               <br />
@@ -94,7 +122,9 @@
                 <v-icon size="20" class="mr-3 black--text">
                   {{ item.icon }}
                 </v-icon>
-                {{ item.title }}
+                <a class="black--text" :href="item.link" target="_blank">
+                  {{ item.title }}
+                </a>
               </v-card-text>
             </v-card>
           </v-col>
@@ -158,6 +188,7 @@ export default {
   name: "App",
 
   data: () => ({
+    selectedMenuItem: 0,
     menuNavigation: [
       {
         title: "Accueil",
@@ -177,21 +208,24 @@ export default {
       },
       {
         title: "Contacter",
-        link: "/contater",
+        link: "/contact",
       },
     ],
     contactInfo: [
       {
         title: "Béjaïa avenue, Ighil Ouazoug 06000, Algérie",
         icon: "mdi-map-marker-outline",
+        link: "https://goo.gl/maps/JHJib7PQELVLwo4P6"
       },
       {
         title: "+213 (0)34 80 35 59",
         icon: "mdi-phone-outline",
+        link: "tel: +21334803559"
       },
       {
         title: "contact@cti-expert.com",
         icon: "mdi-email-outline",
+        link: "mailto:contact@cti-expert.com"
       },
     ],
     socialNetworks: [
@@ -218,11 +252,28 @@ export default {
       return this.$vuetify.breakpoint.smAndDown;
     },
   },
+  methods: {
+    goToLink(link) {
+      if (this.$route.fullPath !== link) this.$router.replace(link);
+    },
+  },
 };
 </script>
 
 <style>
 a {
   text-decoration: none;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.5s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
 }
 </style>

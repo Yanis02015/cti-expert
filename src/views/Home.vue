@@ -12,7 +12,10 @@
       >
         <v-row align="center" height="100%">
           <v-col cols="12">
-            <p class="text-h2 font-weight-bold text-center">
+            <p
+              class="font-weight-bold text-center"
+              :class="$vuetify.breakpoint.mobile ? 'text-h3' : 'text-h2'"
+            >
               Qu'est-ce que l'étalonnage ?
             </p>
             <div class="pa-4" />
@@ -43,53 +46,109 @@
       </p>
       <v-row>
         <v-col cols="12" md="4" v-for="(item, n) in activities" :key="n">
-          <v-card
-            v-if="n === 0 || n === 1"
-            height="100%"
-            tile
-            class="text-center ma-auto"
-          >
-            <v-img src="https://picsum.photos/1000/3000" aspect-ratio="1.1" />
-            <v-card-title>
-              {{ item.title }}
-            </v-card-title>
-            <v-card-text class="text-left">
-              {{ item.content[0] }}
-            </v-card-text>
-            <v-card-actions>
-              <v-btn text plain class="ma-auto">
-                Lire la suite
-                <v-icon class="ml-2" size="20">mdi-arrow-right</v-icon>
-              </v-btn>
-            </v-card-actions>
-          </v-card>
+          <v-hover v-slot="{ hover }">
+            <router-link :to="'/activities/' + (n + 1)">
+              <v-card
+                v-if="n === 0 || n === 1"
+                :elevation="hover ? '5' : '2'"
+                height="100%"
+                tile
+                class="smooth-transition text-center ma-auto pb-4"
+              >
+                <v-img
+                  src="https://picsum.photos/1000/3000"
+                  aspect-ratio="1.1"
+                />
+                <v-card-title>
+                  {{ item.title }}
+                </v-card-title>
+                <v-card-text class="text-left">
+                  {{ cutText(item.contents[0] + lorem, 80) }}
+                </v-card-text>
+                <v-card-actions class="mb-0">
+                  <v-btn text plain class="mx-auto mb-O">
+                    Lire la suite
+                    <v-icon class="ml-2" size="20">mdi-arrow-right</v-icon>
+                  </v-btn>
+                </v-card-actions>
+                <transition
+                  name="custom-classes-transition"
+                  enter-active-class="animated flash"
+                  leave-active-class="animated fadeOut"
+                  :duration="500"
+                >
+                  <v-card
+                    v-if="hover"
+                    style="margin-top: -10px; position: absolute; left: 0; right: 0;"
+                    width="160"
+                    height="2"
+                    tile
+                    flat
+                    class="custom-classes-transition green mx-auto"
+                  >
+                  </v-card>
+                </transition>
+              </v-card>
+            </router-link>
+          </v-hover>
 
           <!-- show more -->
-          <v-card v-if="n === 2" height="100%" tile class="text-center ma-auto">
-            <v-img
-              src="https://picsum.photos/1000/3000"
-              aspect-ratio="1.1"
-              class="text-center align-center image-blur"
-              gradient="to bottom right, rgba(143, 143, 143,.2), rgba(61, 61, 61,.7)"
-            >
-              <v-avatar size="90" class="opacity-1">
-                <v-icon size="60">mdi-arrow-right</v-icon>
-              </v-avatar>
-            </v-img>
-            <v-card-title>
-              Et bien plus encore..
-            </v-card-title>
-            <v-card-text class="text-left">
-              Nous offrons énormément de service, vous trouverez forcément ce
-              dont vous cherchez !
-            </v-card-text>
-            <v-card-actions>
-              <v-btn text plain class="ma-auto">
-                Voir tout nos activités
-                <v-icon class="ml-2" size="20">mdi-arrow-right</v-icon>
-              </v-btn>
-            </v-card-actions>
-          </v-card>
+          <v-hover v-slot="{ hover }">
+            <router-link to="/activities">
+              <v-card
+                v-if="n === 2"
+                :elevation="hover ? '5' : '2'"
+                height="100%"
+                tile
+                class="smooth-transition text-center ma-auto"
+              >
+                <v-img
+                  src="https://picsum.photos/1000/3000"
+                  aspect-ratio="1.1"
+                  class="text-center align-center image-blur"
+                  gradient="to bottom right, rgba(143, 143, 143,.2), rgba(61, 61, 61,.7)"
+                >
+                  <v-avatar
+                    size="90"
+                    class="smooth-transition"
+                    :class="hover ? 'opacity-2' : 'opacity-1'"
+                  >
+                    <v-icon size="60">mdi-arrow-right</v-icon>
+                  </v-avatar>
+                </v-img>
+                <v-card-title>
+                  Et bien plus encore..
+                </v-card-title>
+                <v-card-text class="text-left">
+                  Nous offrons énormément de service, vous trouverez forcément
+                  ce dont vous cherchez !
+                </v-card-text>
+                <v-card-actions>
+                  <v-btn text plain class="ma-auto">
+                    Voir tout nos activités
+                    <v-icon class="ml-2" size="20">mdi-arrow-right</v-icon>
+                  </v-btn>
+                </v-card-actions>
+                <transition
+                  name="custom-classes-transition"
+                  enter-active-class="animated flash"
+                  leave-active-class="animated fadeOut"
+                  :duration="500"
+                >
+                  <v-card
+                    v-if="hover"
+                    style="margin-top: -10px; position: absolute; left: 0; right: 0;"
+                    width="160"
+                    flat
+                    tile
+                    height="2"
+                    class="custom-classes-transition green mx-auto"
+                  >
+                  </v-card>
+                </transition>
+              </v-card>
+            </router-link>
+          </v-hover>
         </v-col>
       </v-row>
     </v-container>
@@ -171,6 +230,12 @@ export default {
       return this.$vuetify.breakpoint.smAndDown;
     },
   },
+  methods: {
+    cutText(text, x) {
+      if (text.length > x - 3) return text.slice(0, x) + "...";
+      return text;
+    },
+  },
 };
 </script>
 
@@ -186,5 +251,17 @@ export default {
 
 .opacity-1 {
   background-color: rgba(255, 255, 255, 0.495) !important;
+}
+
+.opacity-2 {
+  background-color: rgba(255, 255, 255, 0.746) !important;
+}
+
+.custom-classes-transition {
+  --animate-duration: 11s;
+}
+
+.smooth-transition {
+  transition: all 0.4s;
 }
 </style>
