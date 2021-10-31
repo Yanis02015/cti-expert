@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="mb-10">
     <h1 class="text-h4 font-weight-bold text-center my-5">
       Les domaines d'activités
     </h1>
@@ -11,7 +11,7 @@
           tile
           class="text-center ma-auto"
         >
-          <v-img src="https://picsum.photos/1000/3000" aspect-ratio="1.1" />
+          <v-img :src="item.image" aspect-ratio="1.1" />
           <v-card-title>
             {{ item.title }}
           </v-card-title>

@@ -1,62 +1,53 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     activities: [
       {
-        title: "Premier domaine d'activité",
-        image: "",
+        title: "Contrôle réglementaire de sécurité APG/APV.",
+        images: [
+          "https://lh3.googleusercontent.com/proxy/2Hnpbs9mJ3lidXYKCt4Q09eMBlohXMvmgeiLfe3kbWoATGoNn0Kfy7Kt5P6ZXrbgW7y9d5DamBB7W1rgugwWnovQahPkSInQRtLrb3ZBMkUVgRmPjFy2OqlsdVv93RFYQA",
+        ],
         contents: [
           "Premier paragraphe",
-          "Deuxième paragraphe",
-          "Troisieme paragraphe",
-        ]
+          "Epreuve hydrostatique en presence de l'ingénieur des mines",
+          "Reconstitution dossier technique en vue d'algérianisation",
+        ],
       },
       {
-        title: "Deuxième domaine d'activitè",
-        image: "",
+        title: "Contrôle réglementaire de sécurité APL.",
+        images: [],
         contents: [
           "Premier paragraphe du deuxieme domaine",
-          "Deuxième paragraphe du deuxieme domaine",
-          "Troisième paragraphe du deuxieme domaine",
-        ]
+          "Epreuve de charge statique dynamique et stabilité",
+        ],
       },
       {
-        title: "troisieme domaine d'activité",
-        image: "",
+        title: "Contrôle réglementaire de sécurité APE.",
+        images: [],
         contents: [
           "Premier paragraphe du troisieme domaine",
-          "Deuxième paragraphe du troisieme domaine",
-          "Troisieme paragraphe du troisieme domaine",
-        ]
+          "Prelevement échantillon huile transformateur pour analyse",
+        ],
       },
       {
-        title: "Quatrieme domaine d'activitè",
-        image: "",
+        title: "Contrôle CND",
+        images: [
+          "https://www.arcane-industries.fr/site/images/normal/consommable%20pour%20le%20controle%20par%20ultrason.png",
+          "https://www.soudeurs.com/pieces_jointes/8971-hyppolite_asme_9_qs_photo_05.jpg",
+        ],
         contents: [
           "Premier paragraphe du 4eme domaine",
-          "Deuxième paragraphe du 4eme domaine",
-          "Troisième paragraphe du 4eme domaine",
-        ]
+          "Qualification de soudeurs - PQR (Procedure qualification record)",
+          "Procédés de soudage - WPS (Welding procedure specification)",
+        ],
       },
-      {
-        title: "Cinqueme domaine d'activité",
-        image: "",
-        contents: [
-          "Premier paragraphe du cinqueme domaine",
-          "Deuxième paragraphe du cinqueme domaine",
-          "Troisieme paragraphe du cinqueme domaine",
-        ]
-      },
-    ]
+    ],
   },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  }
-})
+  mutations: {},
+  actions: {},
+  modules: {},
+});

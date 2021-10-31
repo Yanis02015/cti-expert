@@ -26,16 +26,42 @@
       <v-spacer></v-spacer>
 
       <v-card flat height="100%" class="hidden-sm-and-down">
-        <v-btn
-          v-for="item in menuNavigation"
-          :key="item.title"
-          color="green"
-          :to="item.link"
-          text
-          height="100%"
+        <v-menu
+          v-for="menuItem in menuNavigation"
+          :key="menuItem.title"
+          rounded
+          offset-y
+          open-on-hover
+          transition="scale-transition"
         >
-          <span>{{ item.title }}</span>
-        </v-btn>
+          <template v-slot:activator="{ attrs, on }">
+            <v-btn
+              v-bind="attrs"
+              v-on="on"
+              color="green"
+              :to="menuItem.link"
+              @click="menuActivities = true"
+              text
+              height="100%"
+            >
+              <span v-if="menuItem.title === 'Activités'"
+                >{{ menuItem.title }}
+                <v-icon size="20">mdi-chevron-down</v-icon></span
+              >
+              <span v-else>{{ menuItem.title }}</span>
+            </v-btn>
+          </template>
+
+          <v-list v-if="menuItem.title === 'Activités'">
+            <v-list-item v-for="(activitie, i) in activities" :key="i" link>
+              <v-list-item-title @click="goToActivitiesMenu(i + 1)">
+                <router-link class="black--text" :to="'/activities/' + (i + 1)">
+                  {{ activitie.title }}
+                </router-link>
+              </v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </v-card>
 
       <v-menu offset-x>
@@ -69,7 +95,7 @@
     </v-main>
 
     <v-footer padless>
-      <v-card flat tile width="100%">
+      <v-card flat tile width="100%" elevation="7">
         <v-row class="ma-0 text-center">
           <v-col cols="12" md="4">
             <v-img class="ma-auto" src="/cti_logo.png" width="150" />
@@ -144,7 +170,7 @@
                 class="d-flex align-center"
               >
                 <v-avatar class="mr-3" size="40">
-                  <img alt="yanis.indt" src="./assets/yanis-indt-logo.jpeg" />
+                  <img alt="yanis.indt" src="./assets/yanis-indt-logo.jpeg"/>
                 </v-avatar>
                 <v-card class="transparent" tile elevation="0">
                   <v-list-item-content
@@ -158,7 +184,7 @@
                       <!-- class="pink--text text--lighten-2" -->
                       <a
                         target="_blank"
-                        class="blue--text text--accent-4"
+                        class="green--text text--accent-4"
                         href="https://linkedin.com/in/YanisOulhaci"
                         >@YanisOulhaci</a
                       >
@@ -189,6 +215,7 @@ export default {
 
   data: () => ({
     selectedMenuItem: 0,
+    menuActivities: true,
     menuNavigation: [
       {
         title: "Accueil",
@@ -215,17 +242,17 @@ export default {
       {
         title: "Béjaïa avenue, Ighil Ouazoug 06000, Algérie",
         icon: "mdi-map-marker-outline",
-        link: "https://goo.gl/maps/JHJib7PQELVLwo4P6"
+        link: "https://goo.gl/maps/JHJib7PQELVLwo4P6",
       },
       {
         title: "+213 (0)34 80 35 59",
         icon: "mdi-phone-outline",
-        link: "tel: +21334803559"
+        link: "tel: +21334803559",
       },
       {
         title: "contact@cti-expert.com",
         icon: "mdi-email-outline",
-        link: "mailto:contact@cti-expert.com"
+        link: "mailto:contact@cti-expert.com",
       },
     ],
     socialNetworks: [
@@ -255,6 +282,10 @@ export default {
   methods: {
     goToLink(link) {
       if (this.$route.fullPath !== link) this.$router.replace(link);
+    },
+    goToActivitiesMenu(i) {
+      let url = "/activities/" + i;
+      if (this.$route.fullPath !== url) this.$router.replace(url);
     },
   },
 };

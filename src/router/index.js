@@ -33,7 +33,7 @@ const routes = [
   {
     path: '/activities/:item',
     name: 'ActivitieItem',
-    component: ActivitieItem
+    component: ActivitieItem,
   },
   {
     path: '/contact',

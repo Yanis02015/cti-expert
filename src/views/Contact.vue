@@ -90,9 +90,14 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn class="green--text" text plain>
-                  Voir sur Google maps
-                  <v-icon class="mb-1" size="22"> mdi-map-marker </v-icon>
+                <v-btn text plain>
+                  <a
+                    href="https://www.google.com/maps/place/36%C2%B043'50.6%22N+5%C2%B003'10.8%22E/@36.7307222,5.0524528,19z/data=!3m1!4b1!4m6!3m5!1s0x0:0x0!7e2!8m2!3d36.7307229!4d5.0530122?hl=fr"
+                    target="_blank"
+                    class="green--text"
+                    >Voir sur Google maps
+                    <v-icon class="mb-1" size="22"> mdi-map-marker </v-icon>
+                  </a>
                 </v-btn>
               </v-card-actions>
             </v-card>
@@ -130,9 +135,7 @@
                       }
                     "
                     class="ma-2 pa-2"
-                    :class="
-                      hover ? 'green lighten-2' : 'green lighten-3'
-                    "
+                    :class="hover ? 'green lighten-2' : 'green lighten-3'"
                     elevation="1"
                   >
                     <v-img

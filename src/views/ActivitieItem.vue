@@ -13,11 +13,11 @@
           veritatis ratione dolor odit!
         </v-card-text>
       </v-card>
-      <v-img
-        class="mx-auto my-3"
-        width="700"
-        src="https://picsum.photos/510/300?random"
-      ></v-img>
+      <v-row style="width: 60%" class="ma-auto">
+        <v-col cols="12" md="6" v-for="image in activitie.images" :key='image' class="mt-5 mx-auto">
+          <v-img height="100%" :src="image"/>
+        </v-col>
+      </v-row>
       <v-card flat class="ma-auto" width="700">
         <v-card-text v-for="(content, i) in activitie.contents" :key="i" class="ma-0">
           <span v-if="i">

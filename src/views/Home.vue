@@ -7,12 +7,15 @@
         height="400"
         dark
         class="text-center align-center"
-        src="https://picsum.photos/1000/1300"
+        src="DSC02848.jpeg"
         gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
       >
         <v-row align="center" height="100%">
+          <v-col cols="12" class="text-h3 white--text font-weight-bold">
+            CTI-EXPERT...
+          </v-col>
           <v-col cols="12">
-            <p
+            <!-- <p
               class="font-weight-bold text-center"
               :class="$vuetify.breakpoint.mobile ? 'text-h3' : 'text-h2'"
             >
@@ -21,7 +24,13 @@
             <div class="pa-4" />
             <p class="text-h6">
               Que signifie le terme étalonnage en métrologie ?
-            </p>
+            </p> -->
+            <v-img
+            class="ma-auto"
+              width="600"
+              contain
+              src="https://www.controle-technique-nimois.fr/wp-content/uploads/sites/3217/2017/05/slogan.png"
+            />
           </v-col>
         </v-row>
       </v-img>
