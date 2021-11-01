@@ -7,7 +7,8 @@
         height="400"
         dark
         class="text-center align-center"
-        src="DSC02848.jpeg"
+        src="https://i.ibb.co/wB7RtsP/controle-APG.jpg"
+        lazy-src="https://i.ibb.co/wB7RtsP/controle-APG.jpg"
         gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
       >
         <v-row align="center" height="100%">
