@@ -1,6 +1,11 @@
 <template>
   <v-app>
-    <v-app-bar absolute app color="white" height="90">
+    <v-app-bar
+      absolute
+      app
+      color="white"
+      :height="$vuetify.breakpoint.mobile ? '70' : '90'"
+    >
       <div class="d-flex align-center">
         <router-link to="/">
           <v-img
@@ -9,7 +14,7 @@
             contain
             src="/cti_logo.png"
             transition="scale-transition"
-            width="70"
+            :width="$vuetify.breakpoint.mobile ? '60' : '70'"
           />
         </router-link>
         <router-link to="/">
@@ -25,12 +30,63 @@
 
       <v-spacer></v-spacer>
 
-      <v-card flat height="100%" class="hidden-sm-and-down">
+      <v-card id="ss" class="d-flex flex-row" flat tile height="100%">
+        <v-card flat v-for="menuItem in menuNavigation" :key="menuItem.title">
+          <v-btn
+            v-if="menuItem.title !== 'Activités'"
+            color="green"
+            :to="menuItem.link"
+            text
+            height="100%"
+          >
+            {{ menuItem.title }}
+          </v-btn>
+
+          <v-menu
+            v-else
+            offset-y
+            rounded
+            open-on-hover
+            transition="scale-transition"
+          >
+            <template v-slot:activator="{ attrs, on }">
+              <v-btn
+                v-bind="attrs"
+                v-on="on"
+                color="green"
+                :to="menuItem.link"
+                text
+                height="100%"
+              >
+                <span>
+                  {{ menuItem.title }}
+                  <v-icon size="20">mdi-chevron-down</v-icon>
+                </span>
+              </v-btn>
+            </template>
+
+            <v-list class="py-0">
+              <v-list-item
+                v-for="(activitie, i) in activities"
+                :key="i"
+                link
+                :to="'/activities/' + (i + 1)"
+                active-class="green--text font-weight-bold"
+              >
+                <v-list-item-title>
+                  {{ activitie.title }}
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-card>
+      </v-card>
+
+      <v-card v-if="false" flat height="100%" class="hidden-sm-and-down">
         <v-menu
           v-for="menuItem in menuNavigation"
           :key="menuItem.title"
           rounded
-          offset-y
           open-on-hover
           transition="scale-transition"
         >
@@ -40,7 +96,6 @@
               v-on="on"
               color="green"
               :to="menuItem.link"
-              @click="menuActivities = true"
               text
               height="100%"
             >
@@ -52,19 +107,23 @@
             </v-btn>
           </template>
 
-          <v-list v-if="menuItem.title === 'Activités'">
-            <v-list-item v-for="(activitie, i) in activities" :key="i" link>
-              <v-list-item-title @click="goToActivitiesMenu(i + 1)">
-                <router-link class="black--text" :to="'/activities/' + (i + 1)">
-                  {{ activitie.title }}
-                </router-link>
+          <v-list v-if="menuItem.title === 'Activités'" class="py-0">
+            <v-list-item
+              v-for="(activitie, i) in activities"
+              :key="i"
+              link
+              :to="'/activities/' + (i + 1)"
+              active-class="green--text font-weight-bold"
+            >
+              <v-list-item-title>
+                {{ activitie.title }}
               </v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
       </v-card>
 
-      <v-menu offset-x>
+      <v-menu offset-x class="hidden-md-and-up green--text">
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             v-bind="attrs"
@@ -88,7 +147,7 @@
     </v-app-bar>
 
     <!-- Main -->
-    <v-main>
+    <v-main class="main-view">
       <transition name="slide-fade">
         <router-view />
       </transition>
@@ -170,11 +229,11 @@
                 class="d-flex align-center"
               >
                 <v-avatar class="mr-3" size="40">
-                  <img alt="yanis.indt" src="./assets/yanis-indt-logo.jpeg"/>
+                  <img alt="yanis.indt" src="./assets/yanis-indt-logo.jpeg" />
                 </v-avatar>
                 <v-card class="transparent" tile elevation="0">
                   <v-list-item-content
-                    style="width: 100px;"
+                    style="width: 100px"
                     class="text-left py-0"
                   >
                     <v-list-item-title class="py-0"
@@ -215,7 +274,6 @@ export default {
 
   data: () => ({
     selectedMenuItem: 0,
-    menuActivities: true,
     menuNavigation: [
       {
         title: "Accueil",
@@ -284,6 +342,7 @@ export default {
       if (this.$route.fullPath !== link) this.$router.replace(link);
     },
     goToActivitiesMenu(i) {
+      console.log("clicked");
       let url = "/activities/" + i;
       if (this.$route.fullPath !== url) this.$router.replace(url);
     },
@@ -306,5 +365,15 @@ a {
 /* .slide-fade-leave-active below version 2.1.8 */ {
   transform: translateX(10px);
   opacity: 0;
+}
+
+.main-view1 {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(244, 248, 251, 1) 86%,
+    rgba(81, 154, 227, 1) 100%
+  );
 }
 </style>

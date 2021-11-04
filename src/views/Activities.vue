@@ -12,7 +12,7 @@
           class="text-center ma-auto"
         >
           <v-img :src="item.image" aspect-ratio="1.1" />
-          <v-card-title>
+          <v-card-title style="word-break: break-word">
             {{ item.title }}
           </v-card-title>
           <v-card-text class="text-left">

@@ -14,15 +14,41 @@
         </v-card-text>
       </v-card>
       <v-row style="width: 60%" class="ma-auto">
-        <v-col cols="12" md="6" v-for="image in activitie.images" :key='image' class="mt-5 mx-auto">
-          <v-img height="100%" :src="image"/>
+        <v-col
+          cols="12"
+          md="6"
+          v-for="image in activitie.images"
+          :key="image.image"
+          class="mt-5 mx-auto"
+        >
+          <v-img
+            height="300"
+            :src="image.image"
+            lazy-src="https://i.ibb.co/frhvMXL/loading.jpg"
+          >
+            <template v-slot:placeholder>
+              <v-row class="fill-height ma-0" align="center" justify="center">
+                <v-progress-circular
+                  indeterminate
+                  color="grey lighten-5"
+                ></v-progress-circular>
+              </v-row>
+            </template>
+          </v-img>
+          <span class="font-weight-bold"> {{ image.context }} </span>
         </v-col>
       </v-row>
-      <v-card flat class="ma-auto" width="700">
-        <v-card-text v-for="(content, i) in activitie.contents" :key="i" class="ma-0">
-          <span v-if="i">
-            {{ content }}
-          </span>
+      <v-card flat class="mx-auto" width="700">
+        <v-card-text
+          v-for="(content, i) in activitie.contents"
+          :key="i"
+          class="ma-0 pa-0"
+        >
+          <v-card v-if="i" flat class="my-7">
+            <span>
+              {{ content }}
+            </span>
+          </v-card>
         </v-card-text>
       </v-card>
     </v-container>
