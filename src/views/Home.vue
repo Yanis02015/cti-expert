@@ -4,7 +4,7 @@
     <v-container fluid class="pa-0">
       <v-img
         width="100%"
-        height="400"
+        :height="mobile ? '250' : '400'"
         dark
         class="text-center align-center home-background1"
       >
@@ -15,8 +15,8 @@
               white--text
               font-weight-bold
               text-h5 text-sm-h4 text-md-h3 text-xl-h2
-              title-home-transfort
             "
+            :class="windowWidth < 319 ? 'mb-0' : 'title-home-transfort'"
           >
             <span class="yellow darken-1 px-4">CTI-EXPERT...</span>
           </v-col>
@@ -219,12 +219,16 @@
         <v-row
           :style="
             !mobile
-              ? 'margin-left: 200px; margin-right: 200px;'
-              : 'margin-left: 50px; margin-right: 50px;'
+              ? 'margin-left: 150px; margin-right: 150px;'
+              : windowWidth > 450
+              ? 'margin-left: 50px; margin-right: 50px;'
+              : ''
           "
         >
           <v-col cols="12" md="6">
-            <v-card-title class="text-md-h3 text-h4 font-weight-black">
+            <v-card-title
+              class="text-lg-h3 text-h5 text-sm-h4 font-weight-black"
+            >
               Besoin d'aide ?
             </v-card-title>
             <v-card-text class="text-subtitile-1 text-md-h6">
@@ -241,7 +245,8 @@
           <v-col cols="12" md="6">
             <v-img
               class="ma-auto"
-              width="300"
+              :width="mobile ? '200' : '300'"
+              height="100%"
               src="https://pngimage.net/wp-content/uploads/2018/05/%C3%A7a%C4%9Fr%C4%B1-merkezi-png-6.png"
             />
           </v-col>
@@ -265,6 +270,9 @@ export default {
     ...mapState(["activities"]),
     mobile() {
       return this.$vuetify.breakpoint.smAndDown;
+    },
+    windowWidth() {
+      return this.$vuetify.breakpoint.width;
     },
   },
   methods: {
