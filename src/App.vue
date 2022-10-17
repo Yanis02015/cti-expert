@@ -30,7 +30,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-card id="ss" class="d-flex flex-row" flat tile height="100%">
+      <v-card v-if="!mobile" id="ss" class="d-flex flex-row" flat tile height="100%">
         <v-card flat v-for="menuItem in menuNavigation" :key="menuItem.title">
           <v-btn
             v-if="menuItem.title !== 'Activités'"
@@ -82,48 +82,7 @@
         </v-card>
       </v-card>
 
-      <v-card v-if="false" flat height="100%" class="hidden-sm-and-down">
-        <v-menu
-          v-for="menuItem in menuNavigation"
-          :key="menuItem.title"
-          rounded
-          open-on-hover
-          transition="scale-transition"
-        >
-          <template v-slot:activator="{ attrs, on }">
-            <v-btn
-              v-bind="attrs"
-              v-on="on"
-              color="green"
-              :to="menuItem.link"
-              text
-              height="100%"
-            >
-              <span v-if="menuItem.title === 'Activités'"
-                >{{ menuItem.title }}
-                <v-icon size="20">mdi-chevron-down</v-icon></span
-              >
-              <span v-else>{{ menuItem.title }}</span>
-            </v-btn>
-          </template>
-
-          <v-list v-if="menuItem.title === 'Activités'" class="py-0">
-            <v-list-item
-              v-for="(activitie, i) in activities"
-              :key="i"
-              link
-              :to="'/activities/' + (i + 1)"
-              active-class="green--text font-weight-bold"
-            >
-              <v-list-item-title>
-                {{ activitie.title }}
-              </v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
-      </v-card>
-
-      <v-menu offset-x class="hidden-md-and-up green--text">
+      <v-menu v-else offset-x class="green--text">
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             v-bind="attrs"
